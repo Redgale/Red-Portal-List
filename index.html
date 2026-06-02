@@ -4,44 +4,206 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Red Portal List</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Oxanium:wght@400;700&display=swap" rel="stylesheet">
+
     <style>
+        :root {
+            --bg-color: #0a0506;
+            --panel-bg: rgba(20, 10, 12, 0.85);
+            --cyber-red: #ff003c;
+            --cyber-red-glow: rgba(255, 0, 60, 0.6);
+            --cyber-dark-red: #520013;
+            --text-main: #ececec;
+            --text-muted: #8b7276;
+            --scanline-opacity: 0.08;
+        }
+
+        /* Base Reset & Matrix/CRT Atmosphere */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 0 20px;
-            background-color: #f9f9f9;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Share Tech Mono', monospace;
+            line-height: 1.5;
+            padding: 40px 20px;
+            overflow-x: hidden;
+            position: relative;
         }
-        #content {
-            background: #fff;
+
+        /* Ambient Deteriorating CRT Scanlines */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 999;
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+            opacity: var(--scanline-opacity);
+        }
+
+        /* Glitchy Static Grid Background */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(to right, rgba(255, 0, 60, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 0, 60, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Main Container with Cyberpunk Angular Cuts */
+        .terminal-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--panel-bg);
+            border: 1px solid var(--cyber-red);
             padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            position: relative;
+            box-shadow: 0 0 20px rgba(255, 0, 60, 0.15), inset 0 0 15px rgba(255, 0, 60, 0.1);
+            backdrop-filter: blur(4px);
+            
+            /* Sharp clipped corners */
+            clip-path: polygon(
+                0px 20px, 20px 0px, 
+                calc(100% - 20px) 0px, 100% 20px, 
+                100% calc(100% - 20px), calc(100% - 20px) 100%, 
+                20px 100%, 0px calc(100% - 20px)
+            );
         }
-        h1 {
-            color: #d32f2f;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
+
+        /* Top Status Bar Decoration */
+        .status-header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 2px dashed var(--cyber-dark-red);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            color: var(--cyber-red);
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
-        h2 {
-            margin-top: 30px;
-            color: #111;
+
+        .status-header .blink {
+            animation: textBlink 1.5s infinite steps(2);
         }
-        a {
-            color: #0288d1;
+
+        /* Markdown Elements Styling */
+        #content h1 {
+            font-family: 'Oxanium', sans-serif;
+            font-size: 2.8rem;
+            text-transform: uppercase;
+            color: #fff;
+            text-shadow: 0 0 10px var(--cyber-red-glow), 3px 3px 0px var(--cyber-dark-red);
+            letter-spacing: 4px;
+            margin-bottom: 40px;
+            border-left: 5px solid var(--cyber-red);
+            padding-left: 15px;
+        }
+
+        #content h2 {
+            font-family: 'Oxanium', sans-serif;
+            font-size: 1.6rem;
+            color: var(--cyber-red);
+            margin-top: 40px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Custom decorator block before every h2 node link */
+        #content h2 a::before {
+            content: "// ";
+            color: var(--text-muted);
+        }
+
+        #content h2 a {
+            color: #fff;
             text-decoration: none;
+            transition: all 0.2s ease;
+            position: relative;
         }
-        a:hover {
-            text-decoration: underline;
+
+        #content h2 a:hover {
+            color: var(--cyber-red);
+            text-shadow: 0 0 8px var(--cyber-red-glow);
+            padding-left: 5px;
         }
+
+        #content p {
+            color: var(--text-main);
+            font-size: 1.1rem;
+            text-align: justify;
+            margin-bottom: 25px;
+            padding: 15px;
+            background: rgba(255, 0, 60, 0.02);
+            border-left: 2px solid var(--cyber-dark-red);
+        }
+
+        /* Footer Decoration */
+        .terminal-footer {
+            margin-top: 50px;
+            border-top: 1px solid var(--cyber-dark-red);
+            padding-top: 15px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-align: right;
+            letter-spacing: 1px;
+        }
+
+        /* Animations */
+        @keyframes textBlink {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--cyber-dark-red);
+            border: 1px solid var(--cyber-red);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--cyber-red);
+        }
+
     </style>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
 
-    <div id="content"></div>
+    <div class="terminal-container">
+        <div class="status-header">
+            <div>SYS_LOG // SOURCE: STATIC_ARCHIVE</div>
+            <div class="blink">● CONNECTION_DEGRADED_94%</div>
+        </div>
+
+        <div id="content"></div>
+
+        <div class="terminal-footer">
+            [REPI_NODE_V.2.06] // DATA_INTEGRITY: COMPROMISED
+        </div>
+    </div>
 
     <script type="text/markdown" id="markdown-source">
 # Red Portal List
@@ -60,10 +222,9 @@ The Birthday Club is an exclusive, semi-secret organization founded in 2019 by a
     </script>
 
     <script>
-        // Get the raw markdown text from the script tag
-        const markdownText = document.getElementById('markdown-source').text;
-        // Render it into the content div
-        document.getElementById('content').innerHTML = marked.parse(markdownText);
+        // Extract raw markdown and render it inside the cyberpunk panel
+        const rawMarkdown = document.getElementById('markdown-source').text;
+        document.getElementById('content').innerHTML = marked.parse(rawMarkdown);
     </script>
 </body>
 </html>
