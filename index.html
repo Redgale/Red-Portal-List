@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Red Portal List</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+            background-color: #f9f9f9;
+        }
+        #content {
+            background: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        h1 {
+            color: #d32f2f;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        h2 {
+            margin-top: 30px;
+            color: #111;
+        }
+        a {
+            color: #0288d1;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+
+    <div id="content"></div>
+
+    <script type="text/markdown" id="markdown-source">
+# Red Portal List
+
+## [Happy Hills Population Stats](https://sites.google.com/view/happy-hills-population-stats/home)
+Holiday Hills is a charming, suburban community nestled in the Sunburst Valley, known for its picturesque landscapes, welcoming residents, and an inexplicable tendency for its citizens to engage in year-round holiday celebrations. The town has grown from a modest population of 300 to over 15,000 residents today.
+
+## [Statistics Gov](https://sites.google.com/view/statistics-gov/home)
+A site dedicated to helping the government with its money problems. Their efforts include stopping spending, helping with debt, and stopping the spread of greed and corruption. Their goal is to help the United States be a debt-free country.
+
+## [Texting Club Rewritten](https://sites.google.com/view/texting-club-rewritten/home)
+A club for proofreading any school projects. They will check your sources, citations, and grammar. They are proud to have proofread over 600 papers before they were submitted.
+
+## [The Birthday Club](https://sites.google.com/view/the-birthday-club/home)
+The Birthday Club is an exclusive, semi-secret organization founded in 2019 by a group of friends who collectively decided that society's approach to birthday celebrations was fundamentally broken. Their mission statement reads: "To ensure that no birthday goes uncelebrated and that every member receives excessive, unnecessary, and slightly unhinged birthday content."
+    </script>
+
+    <script>
+        // Get the raw markdown text from the script tag
+        const markdownText = document.getElementById('markdown-source').text;
+        // Render it into the content div
+        document.getElementById('content').innerHTML = marked.parse(markdownText);
+    </script>
+</body>
+</html>
